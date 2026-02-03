@@ -1,12 +1,24 @@
-/* Styles for To-do list */
-#todo { max-width:520px; margin-top:1rem; }
-.inline-form { display:flex; gap:8px; margin-bottom:8px; }
-#new-task { flex:1; padding:8px; font-size:1rem; }
-#add-btn { padding:8px 12px; }
-#task-list { list-style:none; padding:0; margin:0; }
-.task { display:flex; gap:8px; align-items:center; padding:6px 0; border-bottom:1px solid rgba(0,0,0,0.06); }
-.task-label { flex:1; }
-.task-label.done { text-decoration:line-through; color:#666; }
-.muted { color:#666; font-size:0.95rem; }
-.task button { padding:4px 8px; }
-.edit-input { flex:1; padding:6px; }
+h1{
+    color: red;
+    font-size: 250%;
+    margin-top: 20px;
+    font-family: serif;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    }
+
+h4{
+    margin-bottom: 4%;
+    margin-top: 0%;
+}
+
+body{
+    background-color:beige;
+}
+
+img{
+    border-radius:0%;
+    padding: 5px;
+    width: 50%;
+    height: 50%;
+}
