@@ -1,17 +1,27 @@
 <html>    
-    <header1>
+    <header1 class = "site-header">
         <link rel="stylesheet" type="text/css" href="styles.css">
         <center>
-        <title>Routine Rampage</title>
-        <h1>Routine Rampage</h1>
-        <h4>By: Hadley, Jeffers and Cheeseman</h4>
-        <img id="capstone_logo" src="capstone_logo.png" alt="image error"/>
+            <border>
+                <title>Routine Rampage</title>
+                <h1 class = "site-name">Routine Rampage</h1>
+            </border>
         </center>
     </header1>
 
+
     <body>
-        <p>Routine Rampage is an interactive application designed to help users build and maintain healthy daily routines.</p>
-        
+
+        <div class="dropdown">
+            <button class="dropbtn">Pages ▼</button>
+            <div class="dropdown-content">
+                <a href="UiGraphic.html">Home</a>
+                <a href="Login.html">Login</a>
+            </div>
+        </div>
+
+
+    <center>
         <section id="todo" aria-labelledby="todo-title">
             <h3 id="todo-title">To‑do List</h3>
 
@@ -24,8 +34,18 @@
 
             <ul id="task-list" aria-live="polite" aria-label="Tasks"></ul>
         </section>
+    </center>
+    </h6>
+        
 
         <script src="scripts.js" defer></script>
     </body>
+
+    <footer>
+        <center>
+        <img id="capstone_logo" src="capstone_logo.png" alt="image error"/>
+        <h5>COPYRIGHT &#169 Hadley, Jeffers and Cheeseman</h5>
+        </center>
+    </footer>
     
 </html>
