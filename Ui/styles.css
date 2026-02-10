@@ -132,6 +132,54 @@ body {
     margin-bottom: 10px;
 }
 
+/* Task list */
+.task-list {
+    list-style: none;
+    margin-top: 15px;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f9fafb;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: transform 0.1s ease, background 0.2s ease;
+}
+
+.task:hover {
+    background: #eef2ff;
+    transform: scale(1.01);
+}
+
+.task.completed span {
+    text-decoration: line-through;
+    color: #6b7280;
+}
+
+.task span {
+    flex: 1;
+    cursor: pointer;
+}
+
+.task-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.task button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.task button:hover {
+    opacity: 0.7;
+}
+
 
 
 
