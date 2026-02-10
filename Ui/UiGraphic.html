@@ -1,18 +1,18 @@
-<html>    
-    <header1 class = "site-header">
-        <link rel="stylesheet" type="text/css" href="styles.css">
-        <center>
-            <border>
-                <title>Routine Rampage</title>
-                <h1 class = "site-name">Routine Rampage</h1>
-            </border>
-        </center>
-    </header1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Routine Rampage</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 
+<body>
+    <header class="site-header">
+        <h1 class="site-name">Routine Rampage</h1>
+    </header>
 
-    <body>
-        <div class = "layout">
-            <aside class="sidebar">
+    <div class="layout">
+        <aside class="sidebar">
             <div class="dropdown">
                 <button class="dropbtn">Pages ▼</button>
                 <div class="dropdown-content">
@@ -20,38 +20,28 @@
                     <a href="Login.html">Login</a>
                 </div>
             </div>
-            </aside>
-        </div>
+        </aside>
 
+        <main class="content">
+            <section class="todo-container" id="todo" aria-labelledby="todo-title">
+                <h3 id="todo-title">To-do List</h3>
 
-        
+                <form id="add-form" class="inline-form" onsubmit="return false;">
+                    <input id="new-task" type="text" placeholder="Add a task..." />
+                    <button id="add-btn" type="button">Add</button>
+                </form>
 
-
-    <div class="todo-container">
-        <section id="todo" aria-labelledby="todo-title">
-            <h3 id="todo-title">To-do List</h3>
-
-            <form id="add-form" class="inline-form" onsubmit="return false;">
-                <input id="new-task" type="text" placeholder="Add a task..." aria-label="New task" />
-                <button id="add-btn" type="button">Add</button>
-            </form>
-
-            <p id="empty-msg" class="muted">No tasks yet. Add one above.</p>
-
-            <ul id="task-list" aria-live="polite" aria-label="Tasks"></ul>
-        </section>
+                <p id="empty-msg" class="muted">No tasks yet. Add one above.</p>
+                <ul id="task-list"></ul>
+            </section>
+        </main>
     </div>
 
-
-    
-        <script src="scripts.js" defer></script>
-    </body>
-
-    <footer>
-        <center>
-        <img id="capstone_logo" src="capstone_logo.png" alt="image error"/>
-        <h5>COPYRIGHT &#169 Hadley, Jeffers and Cheeseman</h5>
-        </center>
+    <footer class="site-footer">
+        <img id="capstone_logo" src="capstone_logo.png" alt="Capstone Logo">
+        <h5>© Hadley, Jeffers and Cheeseman</h5>
     </footer>
-    
+
+    <script src="scripts.js" defer></script>
+</body>
 </html>
