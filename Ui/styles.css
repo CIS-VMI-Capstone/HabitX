@@ -17,11 +17,10 @@ border{
     margin:0;
 }
 
-h4{
- align-self: center;
+footer{
+    flex:1;
+    padding: 50px;
 }
-
-
 
 body{
     background-color:beige;
@@ -74,4 +73,15 @@ img{
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.todo-container {
+    text-align: center; 
+}
+
+.todo-container h3 {
+    margin-bottom:10;
+}
+
+
+
 
