@@ -13,9 +13,10 @@ body {
 
 /* Header */
 .site-header {
-    background: linear-gradient(135deg, #5b6cff, #7b8cff);
-    color: white;
+    background: linear-gradient(135deg, #0e0e0f, #b72e2e);
+    color: rgb(255, 253, 253);
     padding: 20px;
+    font-family: 'Times New Roman', Times, serif;
     text-align: center;
 }
 
@@ -40,7 +41,7 @@ body {
 .dropbtn {
     width: 100%;
     padding: 10px;
-    background: #3b82f6;
+    background: #259b4f;
     color: white;
     border: none;
     cursor: pointer;
@@ -180,6 +181,10 @@ body {
     opacity: 0.7;
 }
 
+/*img{
+  
+}
+*/
 
 
 
