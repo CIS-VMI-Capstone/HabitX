@@ -134,7 +134,7 @@ body {
 
 /* Footer */
 .site-footer {
-    background: #111827;
+    background: linear-gradient(135deg, #0e0e0f, #b72e2e);
     color: white;
     text-align: center;
     padding: 20px;
