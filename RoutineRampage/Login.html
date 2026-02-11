@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="stylesheet" type="text/css" href="./CSS/LP.css">
         <div class="header">
         <title>Login Page</title>
         <h1>Welcome to Routine Rampage</h1>
-        <img src="capstone_logo.png" alt="Routine Rampage Logo" />
+        <img src="./images/capstone_logo.png" alt="Routine Rampage Logo" />
         </div>
     </head>
 
@@ -18,8 +18,23 @@
             <input id="password" type="password" placeholder="Enter your password" aria-label="Password" required />
             <br><br>
             <button id="login-btn" type="button">Login</button>
+
+            <div class="back-button-container">
+                <a href="./UI.html" class="back-button">← Home</a>
+            </div>
+
+            <p class="register-text">
+            Dont have an account!
+            <a href="./Registration.html">Create account</a>
+
+            <p class="register-text">
+            Can't remember your password?
+            <a href="./Forgot.html">Forgot password</a>
+
+        </p>
         </form>
 
-        <script src="login.js" defer></script>
+        
+        
     </body>
 </html>
