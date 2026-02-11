@@ -1,0 +1,10 @@
+{
+  "name": "RoutineRampage",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "echo \"Building site...\" && npx serve . -p 3000"
+  }
+}
+
+
