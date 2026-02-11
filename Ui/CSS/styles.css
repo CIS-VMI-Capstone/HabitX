@@ -67,6 +67,18 @@ body {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+/* -------BUTTON 1--------*/
+
+.dropbtn1 {
+    width: 100%;
+    padding: 10px;
+    background: #259b4f;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 390%;
+}
 
 /* Main Page */
 .content {
@@ -121,7 +133,7 @@ body {
 
 /* Footer */
 .site-footer {
-    background: #111827;
+    background: linear-gradient(135deg, #0e0e0f, #b72e2e);
     color: white;
     text-align: center;
     padding: 20px;
