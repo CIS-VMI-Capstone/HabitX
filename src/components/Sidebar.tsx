@@ -24,9 +24,6 @@ export default function Sidebar({ onNavigate }: Props) {
         <ListItemButton onClick={() => onNavigate("login")}>
           <ListItemText primary="Login" />
         </ListItemButton>
-        <ListItemButton onClick={() => onNavigate("register")}>
-          <ListItemText primary="Register" />
-        </ListItemButton>
         <ListItemButton onClick={() => onNavigate("about")}>
           <ListItemText primary="About" />
         </ListItemButton>
