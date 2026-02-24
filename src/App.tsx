@@ -22,7 +22,6 @@ export default function App() {
         <Container sx={{ py: 4 }}>
           {page === "home" && <Todo />}
           {page === "login" && <Login onNavigate={setPage} />}
-          {page === "register" && <Registration onNavigate={setPage} />}
           {page === "forgot" && <Forgot onNavigate={setPage} />}
           {page === "about" && <About onNavigate={setPage} />}
         </Container>
