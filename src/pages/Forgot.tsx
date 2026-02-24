@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
+
 type Props = { onNavigate: (p: any) => void };
 
 export default function Forgot({ onNavigate }: Props) {
