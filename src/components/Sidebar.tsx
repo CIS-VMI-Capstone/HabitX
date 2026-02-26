@@ -13,7 +13,7 @@ export default function Sidebar({ onNavigate }: Props) {
   return (
     <Drawer variant="permanent" anchor="left" sx={{ width: 220, "& .MuiDrawer-paper": { width: 220, boxSizing: "border-box", bgcolor: "#1f2933", color: "white", pt: 2 } }}>
       <Box sx={{ px: 2, pb: 2 }}>
-        {/* logo / title */}
+        {/* Routine Rampage Logo */}
         <img src="/images/NewRampageLogo.png" alt="logo" style={{ width: 120, display: "block", margin: "0 auto 8px" }} />
       </Box>
 

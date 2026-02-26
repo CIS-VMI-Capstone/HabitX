@@ -10,11 +10,16 @@ import Forgot from "./pages/Forgot";
 import About from "./pages/About";
 import Calendar from "./components/Calender";
 
-type Page = "home" | "login" | "register" | "forgot" | "about";
+type Page =
+  | "home"
+  | "login"
+  | "register"
+  | "forgot"
+  | "about"
+  | "calendar";
 
 export default function App() {
   const [page, setPage] = useState<Page>("home");
-
   return (
     <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "background.default" }}>
       <Sidebar onNavigate={(p) => setPage(p)} />
@@ -26,6 +31,7 @@ export default function App() {
           {page === "register" && <Registration onNavigate={setPage} />}
           {page === "forgot" && <Forgot onNavigate={setPage} />}
           {page === "about" && <About onNavigate={setPage} />}
+          {page === "calendar" && <Calendar />}
         </Container>
       </Box>
     </Box>
