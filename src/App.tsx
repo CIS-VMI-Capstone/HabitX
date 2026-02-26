@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import Forgot from "./pages/Forgot";
 import About from "./pages/About";
+import Calendar from "./components/Calender";
 
 type Page = "home" | "login" | "register" | "forgot" | "about";
 
