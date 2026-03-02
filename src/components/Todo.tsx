@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";

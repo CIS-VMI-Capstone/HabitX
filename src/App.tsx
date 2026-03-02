@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import Container from "@mui/material/Container";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";

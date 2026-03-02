@@ -3,7 +3,7 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 
 type Props = {
   onNavigate: (page: "home" | "login" | "register" | "forgot" | "about") => void;

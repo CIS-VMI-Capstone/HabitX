@@ -1,7 +1,7 @@
 import React from "react";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
 import '../styles/about.css';
 
