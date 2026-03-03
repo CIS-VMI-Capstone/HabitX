@@ -13,7 +13,14 @@ import {
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const Calendar: React.FC = () => {
+type Page = 
+| "calendar";
+
+type CalendarProps = {
+  onNavigate?: React.Dispatch<React.SetStateAction<Page>>;
+};
+
+const Calendar = ({ onNavigate }: CalendarProps) => {  
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 

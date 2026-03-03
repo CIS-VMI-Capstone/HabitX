@@ -12,10 +12,16 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Typography from "@mui/material/Typography";
 import ListItemText from "@mui/material/ListItemText";
+import Calendar from "./Calendar";
 
 type Task = { text: string; done: boolean };
 
 const STORAGE_KEY = "tasks";
+
+type CalendarProps = {
+  onNavigate?: () => void;
+};
+
 
 export default function Todo() {
   const [tasks, setTasks] = useState<Task[]>(() => {
@@ -55,31 +61,69 @@ export default function Todo() {
   }
 
   return (
-    <Paper sx={{ maxWidth: 700, p: 3, mx: "auto" }}>
+  <Box
+    sx={{
+      display: "flex",
+      gap: 4,
+      maxWidth: 1200,
+      mx: "auto",
+      mt: 4,
+      alignItems: "flex-start"
+    }}
+  >
+    {/* TODO LIST */}
+    <Paper sx={{ flex: 1, p: 3 }}>
       <Typography variant="h6" gutterBottom>
         To-do List
       </Typography>
 
       <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
-        <TextField value={value} onChange={(e) => setValue(e.target.value)} fullWidth placeholder="Add a task..." onKeyDown={(e) => e.key === "Enter" && addTask()} />
+        <TextField
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          fullWidth
+          placeholder="Add a task..."
+          onKeyDown={(e) => e.key === "Enter" && addTask()}
+        />
         <Button variant="contained" onClick={addTask}>
           Add
         </Button>
       </Box>
 
       {tasks.length === 0 ? (
-        <Typography color="text.secondary">No tasks yet. Add one above.</Typography>
+        <Typography color="text.secondary">
+          No tasks yet. Add one above.
+        </Typography>
       ) : (
         <List>
           {tasks.map((task, i) => (
             <ListItem key={i} divider>
-              <Checkbox checked={task.done} onChange={() => toggleTask(i)} />
-              <ListItemText primary={task.text} sx={{ textDecoration: task.done ? "line-through" : "none", color: task.done ? "text.disabled" : "inherit" }} />
+              <Checkbox
+                checked={task.done}
+                onChange={() => toggleTask(i)}
+              />
+              <ListItemText
+                primary={task.text}
+                sx={{
+                  textDecoration: task.done
+                    ? "line-through"
+                    : "none",
+                  color: task.done
+                    ? "text.disabled"
+                    : "inherit"
+                }}
+              />
               <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="edit" onClick={() => editTask(i)}>
+                <IconButton
+                  edge="end"
+                  onClick={() => editTask(i)}
+                >
                   <EditIcon />
                 </IconButton>
-                <IconButton edge="end" aria-label="delete" onClick={() => deleteTask(i)}>
+                <IconButton
+                  edge="end"
+                  onClick={() => deleteTask(i)}
+                >
                   <DeleteIcon />
                 </IconButton>
               </ListItemSecondaryAction>
@@ -88,5 +132,10 @@ export default function Todo() {
         </List>
       )}
     </Paper>
-  );
-}
+
+    {/* CALENDAR */}
+    <Box sx={{ flex: 1 }}>
+      <Calendar />
+    </Box>
+  </Box>
+)};

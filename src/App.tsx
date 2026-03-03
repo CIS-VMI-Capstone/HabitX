@@ -8,15 +8,16 @@ import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import Forgot from "./pages/Forgot";
 import About from "./pages/About";
-import Calendar from "./components/Calender";
+import Calendar from "./components/Calendar";
 
 type Page =
   | "home"
   | "login"
   | "register"
   | "forgot"
-  | "about"
-  | "calendar";
+  | "about";
+
+
 
 export default function App() {
   const [page, setPage] = useState<Page>("home");
@@ -31,7 +32,6 @@ export default function App() {
           {page === "register" && <Registration onNavigate={setPage} />}
           {page === "forgot" && <Forgot onNavigate={setPage} />}
           {page === "about" && <About onNavigate={setPage} />}
-          {page === "calendar" && <Calendar />}
         </Container>
       </Box>
     </Box>
