@@ -26,7 +26,7 @@ export default function Header() {
         fontWeight: 600,
         fontSize: "1.4rem",
         letterSpacing: "-0.02em",
-        color: "#000000ff",
+        color: "#ffffffff",
       }}
     >
       Routine Rampage
