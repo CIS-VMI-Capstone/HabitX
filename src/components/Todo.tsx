@@ -14,6 +14,14 @@ import Typography from "@mui/material/Typography";
 import ListItemText from "@mui/material/ListItemText";
 import Calendar from "./Calendar";
 
+
+import useSound from "use-sound";
+
+import AddTaskSfx from "../resources/sounds/AddTask.mp3";
+import CompletionSfx from "../resources/sounds/Completion.mp3";
+import deleteTaskSfx from "../resources/sounds/deleteTask.mp3";
+
+
 type Task = { text: string; done: boolean };
 
 const STORAGE_KEY = "tasks";
@@ -34,6 +42,10 @@ export default function Todo() {
   });
   const [value, setValue] = useState("");
 
+  const [playAdd] = useSound(AddTaskSfx, {volume: 1});
+  const [playCompletion] = useSound(CompletionSfx, {volume: 1});
+  const [playDelete] = useSound(deleteTaskSfx, {volume: 1});
+
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
   }, [tasks]);
@@ -43,14 +55,20 @@ export default function Todo() {
     if (!text) return;
     setTasks((t) => [...t, { text, done: false }]);
     setValue("");
+    
+    playAdd();
   }
 
   function toggleTask(i: number) {
     setTasks((t) => t.map((task, idx) => (idx === i ? { ...task, done: !task.done } : task)));
+     
+    playCompletion();
   }
 
   function deleteTask(i: number) {
     setTasks((t) => t.filter((_, idx) => idx !== i));
+    
+    playDelete();
   }
 
   function editTask(i: number) {
