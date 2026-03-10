@@ -14,17 +14,18 @@ import Typography from "@mui/material/Typography";
 import ListItemText from "@mui/material/ListItemText";
 import Calendar, { Task } from "./Calendar";
 
-//Built in browser storage to temporarily store list
+//Built in browser storage to temporarily store our list....so it does not dissapear
 const STORAGE_KEY = "tasks";
 
 export default function Todo() {
-  //Load task from storage
+  //Load task from the local browser storage when we run 'npm run dev'
   const [tasks, setTasks] = useState<Task[]>(() => {
     try {
       //Store it as JSON then retrieve it back as JS
       const raw = localStorage.getItem(STORAGE_KEY);
       const parsed = raw ? JSON.parse(raw) : [];
 
+      //Make sure the task matches our "task" -> "Text: String....etc"
       return parsed.map((task: any) => ({
         text: task.text ?? "",
         done: task.done ?? false,
