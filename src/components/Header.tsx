@@ -5,12 +5,33 @@ import Typography from "@mui/material/Typography";
 
 export default function Header() {
   return (
-    <AppBar position="static" color="primary" elevation={2}>
-      <Toolbar>
-        <Typography variant="h5" component="div" sx={{ flexGrow: 1, textAlign: "center", fontFamily: "Times New Roman, serif" }}>
-          Routine Rampage
-        </Typography>
-      </Toolbar>
-    </AppBar>
+    <AppBar
+  position="static"
+  elevation={0}
+  sx={{
+    backgroundColor: "#ffffff",
+    borderBottom: "1px solid #e5e7eb",
+  }}
+>
+  <Toolbar
+    sx={{
+      minHeight: 72,
+      justifyContent: "center",
+    }}
+  >
+    <Typography
+      component="div"
+      sx={{
+        fontFamily: "Inter, Roboto, sans-serif",
+        fontWeight: 600,
+        fontSize: "1.4rem",
+        letterSpacing: "-0.02em",
+        color: "#000000ff",
+      }}
+    >
+      Routine Rampage
+    </Typography>
+  </Toolbar>
+</AppBar>
   );
 }
