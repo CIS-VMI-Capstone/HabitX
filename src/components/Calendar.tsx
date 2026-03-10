@@ -13,14 +13,18 @@ import {
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-type Page = 
-| "calendar";
-
-type CalendarProps = {
-  onNavigate?: React.Dispatch<React.SetStateAction<Page>>;
+export type Task = {
+  text: string;
+  done: boolean;
+  createdAt: string;
+  completedAt?: string;
 };
 
-const Calendar = ({ onNavigate }: CalendarProps) => {  
+type CalendarProps = {
+  tasks: Task[];
+};
+
+const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
@@ -58,15 +62,29 @@ const Calendar = ({ onNavigate }: CalendarProps) => {
     d1.getMonth() === d2.getMonth() &&
     d1.getFullYear() === d2.getFullYear();
 
+  const selectedDayTasks = selectedDate
+    ? tasks.filter((task) => {
+        const created = new Date(task.createdAt);
+        const completed = task.completedAt ? new Date(task.completedAt) : null;
+
+        return (
+          isSameDay(created, selectedDate) ||
+          (completed ? isSameDay(completed, selectedDate) : false)
+        );
+      })
+    : [];
+
   const renderDays = () => {
     const days = [];
 
-    // Empty cells before month starts
     for (let i = 0; i < startDay; i++) {
-      days.push(<Grid item xs={12 / 7} key={`empty-${i}`} />);
+      days.push(
+        <Grid item xs key={`empty-${i}`}>
+          <Box sx={{ height: 50 }} />
+        </Grid>
+      );
     }
 
-    // Month days
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(
         currentDate.getFullYear(),
@@ -75,12 +93,22 @@ const Calendar = ({ onNavigate }: CalendarProps) => {
       );
 
       const isToday = isSameDay(date, today);
-      const isSelected = selectedDate && isSameDay(date, selectedDate);
+      const isSelected = selectedDate ? isSameDay(date, selectedDate) : false;
+
+      const hasHistory = tasks.some((task) => {
+        const created = new Date(task.createdAt);
+        const completed = task.completedAt ? new Date(task.completedAt) : null;
+
+        return (
+          isSameDay(created, date) ||
+          (completed ? isSameDay(completed, date) : false)
+        );
+      });
 
       days.push(
-        <Grid item xs={12 / 7} key={day}>
+        <Grid item xs key={day}>
           <Paper
-            elevation={isSelected ? 6 : 1}
+            elevation={isSelected ? 6 : hasHistory ? 3 : 1}
             onClick={() => setSelectedDate(date)}
             sx={{
               height: 50,
@@ -89,19 +117,17 @@ const Calendar = ({ onNavigate }: CalendarProps) => {
               justifyContent: "center",
               cursor: "pointer",
               borderRadius: 2,
+              border: hasHistory ? "2px solid" : "1px solid",
+              borderColor: hasHistory ? "secondary.main" : "divider",
               bgcolor: isSelected
                 ? "primary.main"
                 : isToday
                 ? "primary.light"
                 : "background.paper",
-              color: isSelected
-                ? "white"
-                : "text.primary",
+              color: isSelected ? "white" : "text.primary",
               transition: "all 0.2s ease",
               "&:hover": {
-                bgcolor: isSelected
-                  ? "primary.dark"
-                  : "action.hover"
+                bgcolor: isSelected ? "primary.dark" : "action.hover"
               }
             }}
           >
@@ -125,7 +151,6 @@ const Calendar = ({ onNavigate }: CalendarProps) => {
         bgcolor: "background.default"
       }}
     >
-      {/* Header */}
       <Box
         display="flex"
         justifyContent="space-between"
@@ -148,10 +173,9 @@ const Calendar = ({ onNavigate }: CalendarProps) => {
         </IconButton>
       </Box>
 
-      {/* Days of week */}
       <Grid container spacing={1} mb={1}>
         {daysOfWeek.map((day) => (
-          <Grid item xs={12 / 7} key={day}>
+          <Grid item xs key={day}>
             <Typography
               variant="caption"
               align="center"
@@ -164,10 +188,50 @@ const Calendar = ({ onNavigate }: CalendarProps) => {
         ))}
       </Grid>
 
-      {/* Calendar days */}
       <Grid container spacing={1}>
         {renderDays()}
       </Grid>
+
+      {selectedDate && (
+        <Box mt={3}>
+          <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+            History for {selectedDate.toLocaleDateString()}
+          </Typography>
+
+          {selectedDayTasks.length === 0 ? (
+            <Typography variant="body2" color="text.secondary">
+              No task history for this day.
+            </Typography>
+          ) : (
+            selectedDayTasks.map((task, index) => (
+              <Paper key={index} sx={{ p: 1.5, mb: 1, borderRadius: 2 }}>
+                <Typography variant="body2" fontWeight={500}>
+                  {task.text}
+                </Typography>
+
+                <Typography variant="caption" color="text.secondary" display="block">
+                  Created: {new Date(task.createdAt).toLocaleString()}
+                </Typography>
+
+                {task.completedAt && (
+                  <Typography variant="caption" color="text.secondary" display="block">
+                    Completed: {new Date(task.completedAt).toLocaleString()}
+                  </Typography>
+                )}
+
+                <Typography
+                  variant="caption"
+                  color={task.done ? "success.main" : "warning.main"}
+                  display="block"
+                  sx={{ mt: 0.5 }}
+                >
+                  Status: {task.done ? "Completed" : "Not completed"}
+                </Typography>
+              </Paper>
+            ))
+          )}
+        </Box>
+      )}
     </Box>
   );
 };
