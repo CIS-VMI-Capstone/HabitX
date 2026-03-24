@@ -155,7 +155,7 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
 
             {hasCompletedTask && (
               <Typography variant="caption">
-                🔥
+                💰
               </Typography>
             )}
           </Paper>

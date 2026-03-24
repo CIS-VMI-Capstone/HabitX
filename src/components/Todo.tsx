@@ -41,6 +41,7 @@ function getCompletedDateKeys(tasks: Task[]) {
   return Array.from(completedDays).sort();
 }
 
+//Streak Function (ChatGPT Helped)
 function calculateCurrentStreak(tasks: Task[]) {
   const completedDays = new Set(getCompletedDateKeys(tasks));
 
@@ -51,7 +52,7 @@ function calculateCurrentStreak(tasks: Task[]) {
   yesterday.setDate(yesterday.getDate() - 1);
   const yesterdayKey = dateToKey(yesterday);
 
-  // If you didn't complete one today or yesterday, streak is dead
+  // Streak == Dead
   if (!completedDays.has(todayKey) && !completedDays.has(yesterdayKey)) {
     return 0;
   }
@@ -59,7 +60,6 @@ function calculateCurrentStreak(tasks: Task[]) {
   let streak = 0;
   const cursor = new Date(today);
 
-  // If nothing completed today, allow streak to count from yesterday
   if (!completedDays.has(todayKey)) {
     cursor.setDate(cursor.getDate() - 1);
   }
@@ -210,7 +210,7 @@ export default function Todo() {
           }}
         >
           <Typography variant="h6" fontWeight={700}>
-            🔥 Task Streak: {streakInfo.currentStreak} day
+            💰 Task Streak: {streakInfo.currentStreak} day
             {streakInfo.currentStreak !== 1 ? "s" : ""}
           </Typography>
 
