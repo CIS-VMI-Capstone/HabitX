@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
@@ -14,18 +14,102 @@ import Typography from "@mui/material/Typography";
 import ListItemText from "@mui/material/ListItemText";
 import Calendar, { Task } from "./Calendar";
 
-//Built in browser storage to temporarily store our list....so it does not dissapear
+// Built in browser storage to temporarily store our list
 const STORAGE_KEY = "tasks";
 
+function normalizeDate(date: Date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+function dateToKey(date: Date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function getCompletedDateKeys(tasks: Task[]) {
+  const completedDays = new Set<string>();
+
+  tasks.forEach((task) => {
+    if (task.completedAt) {
+      const completedDate = new Date(task.completedAt);
+      completedDays.add(dateToKey(normalizeDate(completedDate)));
+    }
+  });
+
+  return Array.from(completedDays).sort();
+}
+
+function calculateCurrentStreak(tasks: Task[]) {
+  const completedDays = new Set(getCompletedDateKeys(tasks));
+
+  const today = normalizeDate(new Date());
+  const todayKey = dateToKey(today);
+
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayKey = dateToKey(yesterday);
+
+  // If you didn't complete one today or yesterday, streak is dead
+  if (!completedDays.has(todayKey) && !completedDays.has(yesterdayKey)) {
+    return 0;
+  }
+
+  let streak = 0;
+  const cursor = new Date(today);
+
+  // If nothing completed today, allow streak to count from yesterday
+  if (!completedDays.has(todayKey)) {
+    cursor.setDate(cursor.getDate() - 1);
+  }
+
+  while (completedDays.has(dateToKey(cursor))) {
+    streak++;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+
+  return streak;
+}
+
+function calculateBestStreak(tasks: Task[]) {
+  const completedDayKeys = getCompletedDateKeys(tasks);
+
+  if (completedDayKeys.length === 0) return 0;
+
+  const completedDates = completedDayKeys.map((key) => {
+    const [year, month, day] = key.split("-").map(Number);
+    return new Date(year, month - 1, day);
+  });
+
+  let best = 1;
+  let current = 1;
+
+  for (let i = 1; i < completedDates.length; i++) {
+    const prev = normalizeDate(completedDates[i - 1]);
+    const curr = normalizeDate(completedDates[i]);
+
+    const diffMs = curr.getTime() - prev.getTime();
+    const diffDays = diffMs / (1000 * 60 * 60 * 24);
+
+    if (diffDays === 1) {
+      current++;
+      best = Math.max(best, current);
+    } else {
+      current = 1;
+    }
+  }
+
+  return best;
+}
+
 export default function Todo() {
-  //Load task from the local browser storage when we run 'npm run dev'
+  // Load tasks from local browser storage
   const [tasks, setTasks] = useState<Task[]>(() => {
     try {
-      //Store it as JSON then retrieve it back as JS
       const raw = localStorage.getItem(STORAGE_KEY);
       const parsed = raw ? JSON.parse(raw) : [];
 
-      //Make sure the task matches our "task" -> "Text: String....etc"
       return parsed.map((task: any) => ({
         text: task.text ?? "",
         done: task.done ?? false,
@@ -41,6 +125,17 @@ export default function Todo() {
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  }, [tasks]);
+
+  const streakInfo = useMemo(() => {
+    const todayKey = dateToKey(normalizeDate(new Date()));
+    const completedDays = new Set(getCompletedDateKeys(tasks));
+
+    return {
+      currentStreak: calculateCurrentStreak(tasks),
+      bestStreak: calculateBestStreak(tasks),
+      completedToday: completedDays.has(todayKey)
+    };
   }, [tasks]);
 
   function addTask() {
@@ -105,6 +200,39 @@ export default function Todo() {
           To-do List
         </Typography>
 
+        <Paper
+          elevation={2}
+          sx={{
+            mb: 2,
+            p: 2,
+            borderRadius: 3,
+            bgcolor: "warning.50"
+          }}
+        >
+          <Typography variant="h6" fontWeight={700}>
+            🔥 Task Streak: {streakInfo.currentStreak} day
+            {streakInfo.currentStreak !== 1 ? "s" : ""}
+          </Typography>
+
+          <Typography variant="body2" color="text.secondary">
+            Best streak: {streakInfo.bestStreak} day
+            {streakInfo.bestStreak !== 1 ? "s" : ""}
+          </Typography>
+
+          <Typography
+            variant="body2"
+            sx={{
+              mt: 0.5,
+              color: streakInfo.completedToday ? "success.main" : "warning.main",
+              fontWeight: 600
+            }}
+          >
+            {streakInfo.completedToday
+              ? "You kept your streak alive today."
+              : "Complete a task today to keep your streak alive."}
+          </Typography>
+        </Paper>
+
         <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
           <TextField
             value={value}
@@ -133,7 +261,11 @@ export default function Todo() {
 
                 <ListItemText
                   primary={task.text}
-                  secondary={`Created: ${new Date(task.createdAt).toLocaleDateString()}`}
+                  secondary={
+                    task.completedAt
+                      ? `Completed: ${new Date(task.completedAt).toLocaleString()}`
+                      : `Created: ${new Date(task.createdAt).toLocaleDateString()}`
+                  }
                   sx={{
                     textDecoration: task.done ? "line-through" : "none",
                     color: task.done ? "text.disabled" : "inherit"

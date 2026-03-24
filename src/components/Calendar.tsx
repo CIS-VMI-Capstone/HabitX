@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Box,
   Typography,
@@ -24,11 +24,29 @@ type CalendarProps = {
   tasks: Task[];
 };
 
+function normalizeDate(date: Date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+function isSameDay(d1: Date, d2: Date) {
+  return (
+    d1.getDate() === d2.getDate() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getFullYear() === d2.getFullYear()
+  );
+}
+
 const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const today = new Date();
+
+  const completedDates = useMemo(() => {
+    return tasks
+      .filter((task) => task.completedAt)
+      .map((task) => normalizeDate(new Date(task.completedAt!)));
+  }, [tasks]);
 
   const startOfMonth = new Date(
     currentDate.getFullYear(),
@@ -57,11 +75,6 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
     );
   };
 
-  const isSameDay = (d1: Date, d2: Date) =>
-    d1.getDate() === d2.getDate() &&
-    d1.getMonth() === d2.getMonth() &&
-    d1.getFullYear() === d2.getFullYear();
-
   const selectedDayTasks = selectedDate
     ? tasks.filter((task) => {
         const created = new Date(task.createdAt);
@@ -80,7 +93,7 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
     for (let i = 0; i < startDay; i++) {
       days.push(
         <Grid item xs key={`empty-${i}`}>
-          <Box sx={{ height: 50 }} />
+          <Box sx={{ height: 60 }} />
         </Grid>
       );
     }
@@ -105,14 +118,19 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
         );
       });
 
+      const hasCompletedTask = completedDates.some((completedDate) =>
+        isSameDay(completedDate, date)
+      );
+
       days.push(
         <Grid item xs key={day}>
           <Paper
             elevation={isSelected ? 6 : hasHistory ? 3 : 1}
             onClick={() => setSelectedDate(date)}
             sx={{
-              height: 50,
+              height: 60,
               display: "flex",
+              flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
               cursor: "pointer",
@@ -131,7 +149,15 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
               }
             }}
           >
-            <Typography variant="body2">{day}</Typography>
+            <Typography variant="body2" fontWeight={600}>
+              {day}
+            </Typography>
+
+            {hasCompletedTask && (
+              <Typography variant="caption">
+                🔥
+              </Typography>
+            )}
           </Paper>
         </Grid>
       );
@@ -209,12 +235,20 @@ const Calendar: React.FC<CalendarProps> = ({ tasks }) => {
                   {task.text}
                 </Typography>
 
-                <Typography variant="caption" color="text.secondary" display="block">
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  display="block"
+                >
                   Created: {new Date(task.createdAt).toLocaleString()}
                 </Typography>
 
                 {task.completedAt && (
-                  <Typography variant="caption" color="text.secondary" display="block">
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    display="block"
+                  >
                     Completed: {new Date(task.completedAt).toLocaleString()}
                   </Typography>
                 )}
