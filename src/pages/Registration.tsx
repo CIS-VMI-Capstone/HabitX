@@ -1,6 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import Parse from "parse";
+import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
@@ -8,8 +8,9 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box, Alert } from "@mui/material";
 
-export default function Registration() {
-  const navigate = useNavigate();
+type Props = { onNavigate: (p: any) => void };
+
+export default function Registration({ onNavigate }: Props) {
 
   const validationSchema = Yup.object({
     username: Yup.string().required("Username is required"),
@@ -25,17 +26,19 @@ export default function Registration() {
   });
 
   const handleSignup = async (values: any, { setSubmitting, setErrors }: any) => {
-    const user = new (window as any).Parse.User();
-    user.set("username", values.username);
-    user.set("password", values.password);
-    user.set("email", values.email);
-
     try {
+      const user = new Parse.User();
+      user.set("username", values.username);
+      user.set("password", values.password);
+      user.set("email", values.email);
+
       await user.signUp();
-      localStorage.setItem("sessionToken", user.getSessionToken());
-      navigate("/home");
+      const token = user.getSessionToken();
+      if (!token) throw new Error("No session token returned");
+      localStorage.setItem("sessionToken", token);
+      onNavigate("home");
     } catch (e: any) {
-      setErrors({ server: e.message });
+      setErrors({ server: e.message || "Unable to create account" });
     } finally {
       setSubmitting(false);
     }
@@ -115,7 +118,7 @@ export default function Registration() {
               {isSubmitting ? "Creating Account..." : "Create Account"}
             </Button>
 
-            <Button variant="text" onClick={() => navigate("/login")}>
+            <Button variant="text" onClick={() => onNavigate("login")}>
               ← Login
             </Button>
           </Box>

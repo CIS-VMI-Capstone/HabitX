@@ -1,6 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import Parse from "parse";
+import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
@@ -8,8 +8,9 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box, Alert } from "@mui/material";
 
-export default function Login() {
-  const navigate = useNavigate();
+type Props = { onNavigate: (p: any) => void };
+
+export default function Login({ onNavigate }: Props) {
 
   const validationSchema = Yup.object({
     username: Yup.string().required("Username is required"),
@@ -18,11 +19,13 @@ export default function Login() {
 
   const handleLogin = async (values: any, { setSubmitting, setErrors }: any) => {
     try {
-      const user = await (window as any).Parse.User.logIn(values.username, values.password);
-      localStorage.setItem("sessionToken", user.getSessionToken());
-      navigate("/home");
+      const user = await Parse.User.logIn(values.username, values.password);
+      const token = user.getSessionToken();
+      if (!token) throw new Error("No session token returned");
+      localStorage.setItem("sessionToken", token);
+      onNavigate("home");
     } catch (e: any) {
-      setErrors({ server: e.message });
+      setErrors({ server: e.message || "Login failed" });
     } finally {
       setSubmitting(false);
     }
@@ -77,13 +80,13 @@ export default function Login() {
 
             <Button
               variant="text"
-              onClick={() => navigate("/register")}
+              onClick={() => onNavigate("register")}
             >
               Create account
             </Button>
             <Button
               variant="text"
-              onClick={() => navigate("/forgot")}
+              onClick={() => onNavigate("forgot")}
             >
               Forgot password
             </Button>
