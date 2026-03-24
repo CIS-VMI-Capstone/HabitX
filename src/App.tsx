@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 import Container from "@mui/material/Container";
-import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Todo from "./components/Todo";
 import Login from "./pages/Login";
@@ -25,7 +24,6 @@ export default function App() {
     <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "background.default" }}>
       <Sidebar onNavigate={(p) => setPage(p)} />
       <Box sx={{ flex: 1 }}>
-        <Header />
         <Container sx={{ py: 4 }}>
           {page === "home" && <Todo />}
           {page === "login" && <Login onNavigate={setPage} />}
