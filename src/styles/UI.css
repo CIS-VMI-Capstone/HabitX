@@ -13,7 +13,7 @@ body {
 
 /* Header */
 .site-header {
-    background: linear-gradient(135deg, #0e0e0f, #b72e2e);
+    background: linear-gradient(135deg, #000000, #ee2e2e);
     color: rgb(255, 253, 253);
     padding: 20px;
     font-family: 'Times New Roman', Times, serif;
