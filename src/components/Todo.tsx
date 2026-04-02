@@ -210,7 +210,7 @@ export default function Todo() {
           }}
         >
           <Typography variant="h6" fontWeight={700}>
-            💰 Task Streak: {streakInfo.currentStreak} day
+              Task Streak: {streakInfo.currentStreak} day
             {streakInfo.currentStreak !== 1 ? "s" : ""}
           </Typography>
 
