@@ -7,7 +7,7 @@ const PasswordReset = () => {
 
   const handlePasswordReset = async () => {
     try {
-      // Todo: Add your password reset logic here
+      //logic
     } catch (e) {
       setError(e.message);
       setMessage('');

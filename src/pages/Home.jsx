@@ -5,7 +5,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Todo: Add your logout logic here
+    //logic
     Parse.User.logOut();
     localStorage.removeItem('sessionToken');
     navigate('/login');
