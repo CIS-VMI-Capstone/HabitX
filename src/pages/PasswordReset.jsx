@@ -7,7 +7,7 @@ const PasswordReset = () => {
 
   const handlePasswordReset = async () => {
   try {
-    await (window as any).Parse.User.requestPasswordReset(email);
+    await window.Parse.User.requestPasswordReset(email);
 
     setMessage("Password reset email sent!");
     setError('');
