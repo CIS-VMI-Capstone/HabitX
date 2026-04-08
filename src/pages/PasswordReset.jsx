@@ -6,13 +6,16 @@ const PasswordReset = () => {
   const [error, setError] = useState('');
 
   const handlePasswordReset = async () => {
-    try {
-      //logic
-    } catch (e) {
-      setError(e.message);
-      setMessage('');
-    }
-  };
+  try {
+    await (window as any).Parse.User.requestPasswordReset(email);
+
+    setMessage("Password reset email sent!");
+    setError('');
+  } catch (e) {
+    setError(e.message);
+    setMessage('');
+  }
+};
 
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-radial from-primary via-secondary to-purple-500">
