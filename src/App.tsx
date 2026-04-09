@@ -13,7 +13,8 @@ type Page =
   | "login"
   | "register"
   | "forgot"
-  | "about";
+  | "about"
+  | "password-reset";
 
 export default function App() {
   const [page, setPage] = useState<Page>("login");
@@ -29,6 +30,7 @@ export default function App() {
             {page === "register" && <Registration onNavigate={setPage} />}
             {page === "forgot" && <Forgot onNavigate={setPage} />}
             {page === "about" && <About onNavigate={setPage} />}
+            {page === "password-reset" && <Forgot onNavigate={setPage} />}
           </Container>
         </Box>
       </Box>
@@ -39,7 +41,7 @@ export default function App() {
       <Box sx={{ p: 4, backgroundColor: "#f5f5f5" }}>
         <h1>Error loading app</h1>
         <p>Please check the browser console for details.</p>
-        <pre style={{ backgroundColor: "#fff", p: 2, overflow: "auto" }}>
+        <pre style={{ backgroundColor: "#fff", padding: 2, overflow: "auto" }}>
           {String(error)}
         </pre>
       </Box>
