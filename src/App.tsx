@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import Container from "@mui/material/Container";
 import Sidebar from "./components/Sidebar";
 import Todo from "./components/Todo";
-import Login from "./pages/Login";
+import Login from "./pages/Login"
 import Registration from "./pages/Registration";
 import Forgot from "./pages/Forgot";
 import About from "./pages/About";
