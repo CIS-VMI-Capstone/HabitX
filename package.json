@@ -2,7 +2,7 @@
   "name": "RoutineRampage",
   "version": "1.0.0",
   "private": true,
-  "proxy": "http://localhost:1337",
+  "proxy": "http://localhost:8080",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

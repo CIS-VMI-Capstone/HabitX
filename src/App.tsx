@@ -24,11 +24,11 @@ export default function App() {
   }, []);
 
  async function fetchTodos() {
-    const Todo = Parse.Object.extend('Todos');
-    const query = new Parse.Query(Todo);
+   const TodosClass = Parse.Object.extend('Todos');
+   const query = new Parse.Query(TodosClass);
 
     try {
-      const results = await query.find();
+  const results = await query.find();
       console.log('Fetched:', results);
       return results;
     } catch (error) {
@@ -42,8 +42,8 @@ export default function App() {
       <Box sx={{ flex: 1 }}>
         <Container sx={{ py: 4 }}>
           {page === "home" && <Todo />}
-          {page === "login" && <Login onNavigate={setPage} />}
-          {page === "register" && <Registration onNavigate={setPage} />}
+          {page === "login" && <Login />}
+          {page === "register" && <Registration />}
           {page === "forgot" && <Forgot onNavigate={setPage} />}
           {page === "about" && <About onNavigate={setPage} />}
         </Container>
