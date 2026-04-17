@@ -7,7 +7,7 @@ import {
   Fab, Paper,
 } from '@mui/material';
 import {
-  Menu as MenuIcon, Dashboard, ChecklistRtl, Add, Logout, FitnessCenter,
+  Menu as MenuIcon, Dashboard, ChecklistRtl, Add, Logout, Info,
 } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 import { useAuth } from '../context/AuthContext.jsx';
@@ -17,8 +17,9 @@ import APP_CONFIG from '../config/app.config.js';
 const DRAWER_WIDTH = 240;
 
 const NAV_ITEMS = [
-  { label: 'Dashboard', icon: <Dashboard />, path: '/' },
+  { label: 'Dashboard', icon: <Dashboard />,    path: '/' },
   { label: 'My Habits', icon: <ChecklistRtl />, path: '/habits' },
+  { label: 'About',     icon: <Info />,          path: '/about' },
 ];
 
 export default function Layout() {
@@ -107,7 +108,6 @@ export default function Layout() {
   const drawerContent = (
     <Box>
       <Box sx={{ p: 3, display: 'flex', alignItems: 'center', gap: 1.5 }}>
-        <FitnessCenter color="primary" />
         <Typography variant="h6" color="primary">
           HabitX
         </Typography>

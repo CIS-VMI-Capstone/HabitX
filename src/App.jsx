@@ -9,6 +9,7 @@ import Dashboard   from './pages/Dashboard.jsx';
 import Habits      from './pages/Habits.jsx';
 import NewHabit    from './pages/NewHabit.jsx';
 import HabitDetail from './pages/HabitDetail.jsx';
+import About       from './pages/About.jsx';
 
 /** Redirects to /login when not authenticated. */
 function RequireAuth({ children }) {
@@ -45,6 +46,7 @@ function AppRoutes() {
         <Route path="habits/new"  element={<NewHabit />} />
         <Route path="habits/:id"  element={<HabitDetail />} />
         <Route path="habits/:id/edit" element={<NewHabit />} />
+        <Route path="about"           element={<About />} />
       </Route>
 
       {/* Fallback */}
