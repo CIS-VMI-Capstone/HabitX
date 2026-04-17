@@ -248,10 +248,11 @@ export default function Layout() {
         component="main"
         sx={{
           flexGrow: 1,
-          p: { xs: 2, md: 3 },
+          pt: { xs: 2, md: 3 },
+          px: { xs: 2, md: 3 },
+          pb: { xs: 22, md: 4 },
           bgcolor: 'background.default',
           minHeight: '100vh',
-          pb: isMobile ? 12 : 4,
         }}
       >
         <Toolbar />

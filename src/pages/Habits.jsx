@@ -175,7 +175,7 @@ export default function Habits() {
       <Tooltip title="Add Habit">
         <Fab
           color="primary"
-          sx={{ position: 'fixed', bottom: { xs: 80, md: 32 }, right: 24 }}
+          sx={{ position: 'fixed', bottom: 32, right: 24, display: { xs: 'none', md: 'flex' } }}
           onClick={() => navigate('/habits/new')}
         >
           <Add />
