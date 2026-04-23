@@ -12,9 +12,9 @@ export const HABIT_COLORS = {
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#5C6BC0',   // Indigo 400
-      light: '#8E99F3',
-      dark: '#26418F',
+      main: '#cc6b5eff',   // Indigo 400
+      light: '#313135ff',
+      dark: '#3b3e45ff',
       contrastText: '#fff',
     },
     secondary: {
