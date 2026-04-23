@@ -78,7 +78,7 @@ export default function Layout() {
       if (r.time !== currentTime) return;
       const key = `${r.id}-${currentTime}-${now.toDateString()}`;
       if (lastNotifiedRef.current[key]) return;
-      new Notification('HabitX Reminder', {
+      new Notification('RoutineRampage Reminder', {
         body: r.message || `Time to check in on "${r.habitName}"!`,
         icon: '/favicon.svg',
         tag: r.id,
@@ -109,7 +109,7 @@ export default function Layout() {
     <Box>
       <Box sx={{ p: 3, display: 'flex', alignItems: 'center', gap: 1.5 }}>
         <Typography variant="h6" color="primary">
-          HabitX
+          RoutineRampage
         </Typography>
       </Box>
       <Divider />
@@ -180,7 +180,7 @@ export default function Layout() {
             </IconButton>
           )}
           <Typography variant="h6" fontWeight={800} sx={{ flexGrow: 1 }}>
-            HabitX
+            RoutineRampage
           </Typography>
           <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} sx={{ p: 0.5 }}>
             <Avatar sx={{ width: 34, height: 34, bgcolor: 'primary.dark', fontSize: 14 }}>
