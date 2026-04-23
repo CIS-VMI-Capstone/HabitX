@@ -73,7 +73,7 @@ export default function Login() {
             <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, mb: 1 }}>
               <FitnessCenter sx={{ color: 'primary.main', fontSize: 32 }} />
               <Typography variant="h4" color="primary">
-                HabitX
+                RoutineRampage
               </Typography>
             </Box>
             <Typography variant="body2" color="text.secondary">
